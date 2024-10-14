@@ -2,9 +2,9 @@
 
 namespace AreaCalc.Core.Models.Factories
 {
-    public class TriangleFactory : FigureFactoryBase
+    public class TriangleFactory : IFigureFactory
     {
-        public override IFigure Create(params double[] parameters)
+        public IFigure Create(params double[] parameters)
         {
             if (parameters.Length >= 3)
             {

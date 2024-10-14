@@ -1,11 +1,9 @@
-﻿using AreaCalc.Core.Abstract;
-
-namespace AreaCalc.Core.Models.Factories
+﻿namespace AreaCalc.Core.Abstract
 {
     /// <summary>
-    /// Base factory for managing <see cref="IFigure"/> interface
+    /// Factory interface for managing <see cref="IFigure"/> interface
     /// </summary>
-    public abstract class FigureFactoryBase
+    internal interface IFigureFactory
     {
         /// <summary>
         /// Factory method 
@@ -13,5 +11,6 @@ namespace AreaCalc.Core.Models.Factories
         /// <param name="parameters">Parameters, necessary for creating a type of object</param>
         /// <returns></returns>
         public abstract IFigure Create(params double[] parameters);
+
     }
 }

@@ -2,7 +2,7 @@
 
 namespace AreaCalc.Core.Models
 {
-    public class Triangle : IFigure
+    public class Triangle : IFigure, IRightFigure
     {
         #region Constructors
 
@@ -123,7 +123,7 @@ namespace AreaCalc.Core.Models
 
         #region Private methods
 
-        private bool CheckIsRight()
+        public bool CheckIsRight()
         {
             double biggestSide = Math.Max(FirstSide, Math.Max(SecondSide, ThirdSide));
 

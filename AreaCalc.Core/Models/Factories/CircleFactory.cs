@@ -2,9 +2,9 @@
 
 namespace AreaCalc.Core.Models.Factories
 {
-    public class CircleFactory : FigureFactoryBase
+    public class CircleFactory : IFigureFactory
     {
-        public override IFigure Create(params double[] parameters)
+        public IFigure Create(params double[] parameters)
         {
             if (parameters.Length >= 1)
             {
