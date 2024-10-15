@@ -3,7 +3,7 @@
     /// <summary>
     /// Interface, which represents figures, that are possible to be right
     /// </summary>
-    internal interface IRightFigure
+    public interface IRightFigure
     {
         /// <summary>
         /// checks, if the current figure is right
