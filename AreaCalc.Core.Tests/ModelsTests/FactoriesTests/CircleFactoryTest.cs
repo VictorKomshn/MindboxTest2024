@@ -6,10 +6,9 @@ namespace AreaCalc.Core.Tests.ModelsTests.FactoriesTests
     internal class CircleFactoryTest
     {
         [Test]
-        public void Succes_On_Input_Correct()
+        [TestCase(5)]
+        public void Succes_On_Input_Correct(double testCircleRadius)
         {
-            int testCircleRadius = 5;
-
             var factory = new CircleFactory();
 
             Assert.DoesNotThrow(() => factory.Create(testCircleRadius));
@@ -24,21 +23,18 @@ namespace AreaCalc.Core.Tests.ModelsTests.FactoriesTests
         }
 
         [Test]
-        public void Exception_On_Input_Incorrect()
+        [TestCase(-5)]
+        public void Exception_On_Input_Incorrect(double testCircleRadius_incorrect)
         {
-            int testCircleRadius_incorrect = -5;
-
             var factory = new CircleFactory();
 
             Assert.Throws<ArgumentOutOfRangeException>(() => factory.Create(testCircleRadius_incorrect));
         }
 
         [Test]
-        public void EqualAreas_On_Input_Override()
+        [TestCase(5, 6)]
+        public void EqualAreas_On_Input_Override(double testCircleRadius, double testCircleRadiusOverride)
         {
-            int testCircleRadius = 5;
-            int testCircleRadiusOverride = 6;
-
             var factory = new CircleFactory();
 
             IFigure? firstCircle = null;

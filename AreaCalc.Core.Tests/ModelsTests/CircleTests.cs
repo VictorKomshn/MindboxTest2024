@@ -6,10 +6,9 @@ namespace AreaCalc.Core.Tests.ModelsTests
     {
 
         [Test]
-        public void Succes_On_Input_Correct()
+        [TestCase(5)]
+        public void Succes_On_Input_Correct(double testCircleRadius)
         {
-            int testCircleRadius = 5;
-
             Circle? testCircle = null;
 
             Assert.DoesNotThrow(() => testCircle = new Circle(testCircleRadius));
@@ -23,10 +22,9 @@ namespace AreaCalc.Core.Tests.ModelsTests
         }
 
         [Test]
-        public void Exception_On_Input_NotCorrect()
+        [TestCase(-1)]
+        public void Exception_On_Input_NotCorrect(double testCircleRadius_incorrect)
         {
-            int testCircleRadius_incorrect = -1;
-
             Circle? testCircle = null;
 
             Assert.Throws<ArgumentOutOfRangeException>(() => testCircle = new Circle(testCircleRadius_incorrect));

@@ -7,10 +7,9 @@ namespace AreaCalc.Core.Tests.ModelsTests
         #region One number
 
         [Test]
-        public void Succes_On_OneNumber_Correct()
+        [TestCase(5)]
+        public void Succes_On_OneNumber_Correct(double testSideLength)
         {
-            int testSideLength = 5;
-
             Triangle? testTriangle = null;
 
             Assert.DoesNotThrow(() => testTriangle = new Triangle(testSideLength));
@@ -27,15 +26,14 @@ namespace AreaCalc.Core.Tests.ModelsTests
 
             var actualArea = testTriangle.GetArea();
 
-            var areaCorrect = Math.Abs(expectedArea - actualArea) > Constants.Precision;
+            var areaCorrect = Math.Abs(expectedArea - actualArea) < Constants.Precision;
             Assert.IsTrue(areaCorrect);
         }
 
         [Test]
-        public void Exception_On_OneNumber_OutOfRange()
+        [TestCase(-1)]
+        public void Exception_On_OneNumber_OutOfRange(double testSideLength_incorrect)
         {
-            int testSideLength_incorrect = -1;
-
             Triangle? testTriangle = null;
 
             Assert.Throws<ArgumentOutOfRangeException>(() => testTriangle = new Triangle(testSideLength_incorrect));
@@ -46,12 +44,9 @@ namespace AreaCalc.Core.Tests.ModelsTests
         #region TwoNumbers
 
         [Test]
-        public void Succes_On_TwoNumber_Correct()
+        [TestCase(5, 7)]
+        public void Succes_On_TwoNumber_Correct(double testEqualSidesLength, double testUnequalSideLength)
         {
-            int testEqualSidesLength = 5;
-            int testUnequalSideLength = 7;
-
-
             Triangle? testTriangle = null;
 
             Assert.DoesNotThrow(() => testTriangle = new Triangle(testEqualSidesLength, testUnequalSideLength));
@@ -76,50 +71,34 @@ namespace AreaCalc.Core.Tests.ModelsTests
         }
 
         [Test]
-        public void Exception_On_TwoNumber_OutOfRange()
+        [TestCase(1, -2)]
+        [TestCase(-1, -2)]
+        [TestCase(-1, 2)]
+        public void Exception_On_TwoNumber_OutOfRange(double testEqualSidesLength, double testUnequalSideLength)
         {
-            int testEqualSidesLength = 1;
-            int testUnequalSideLength = -2;
-
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Triangle(testEqualSidesLength, testUnequalSideLength));
-
-            testEqualSidesLength = -1;
-            testUnequalSideLength = -2;
-
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Triangle(testEqualSidesLength, testUnequalSideLength));
-
-            testEqualSidesLength = -1;
-            testUnequalSideLength = 2;
-
             Assert.Throws<ArgumentOutOfRangeException>(() => new Triangle(testEqualSidesLength, testUnequalSideLength));
         }
 
         [Test]
-        public void Exception_On_TwoNumber_ExceedTriangleSideLengthLimit()
+        [TestCase(2, 10)]
+        public void Exception_On_TwoNumber_ExceedTriangleSideLengthLimit(double testEqualSidesLength, double testUnequalSideLength_incorrect)
         {
-            int testEqualSidesLength = 2;
-            int testUnequalSideLength_incorrect = 10;
-
             Assert.Throws<ArgumentException>(() => new Triangle(testEqualSidesLength, testUnequalSideLength_incorrect));
         }
 
         [Test]
-        public void IsRight_On_TwoNumber()
+        [TestCase(1, 1.41421356)]
+        public void IsRight_On_TwoNumber(double testEqualSidesLength, double testUnequalSideLength)
         {
-            int testEqualSidesLength = 1;
-            double testUnequalSideLength = Math.Sqrt(2);
-
             Triangle? testTriangle = new Triangle(testEqualSidesLength, testUnequalSideLength);
 
             Assert.That(testTriangle.IsRight, Is.True);
         }
 
         [Test]
-        public void IsNotRight_On_TwoNumber()
+        [TestCase(3, 4)]
+        public void IsNotRight_On_TwoNumber(double testEqualSidesLength, double testUnequalSideLength)
         {
-            int testEqualSidesLength = 3;
-            double testUnequalSideLength = 4;
-
             Triangle? testTriangle = new Triangle(testEqualSidesLength, testUnequalSideLength);
 
             Assert.That(testTriangle.IsRight, Is.False);
@@ -130,13 +109,11 @@ namespace AreaCalc.Core.Tests.ModelsTests
         #region Three numbers
 
         [Test]
-        public void Succes_On_ThreeNumber_Correct()
+        [TestCase(5, 7, 10)]
+        public void Succes_On_ThreeNumber_Correct(double testFirstSidesLength,
+                                                  double testSecondSideLength,
+                                                  double testThirdSideLength)
         {
-            int testFirstSidesLength = 5;
-            int testSecondSideLength = 7;
-            int testThirdSideLength = 10;
-
-
             Triangle? testTriangle = null;
 
             Assert.DoesNotThrow(() => testTriangle = new Triangle(testFirstSidesLength, testSecondSideLength, testThirdSideLength));
@@ -157,56 +134,45 @@ namespace AreaCalc.Core.Tests.ModelsTests
         }
 
         [Test]
-        public void Exception_On_ThreeNumber_OutOfRange()
+        [TestCase(-5, 7, 10)]
+        [TestCase(5, -7, 10)]
+        [TestCase(5, 7, -10)]
+        public void Exception_On_ThreeNumber_OutOfRange(double testFirstSidesLength,
+                                                        double testSecondSideLength,
+                                                        double testThirdSideLength)
         {
-            int testFirstSidesLength = -5;
-            int testSecondSideLength = 7;
-            int testThirdSideLength = 10;
-
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Triangle(testFirstSidesLength, testSecondSideLength, testThirdSideLength));
-
-            testFirstSidesLength = 5;
-            testSecondSideLength = -7;
-            testThirdSideLength = 10;
-
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Triangle(testFirstSidesLength, testSecondSideLength, testThirdSideLength));
-
-            testFirstSidesLength = 5;
-            testSecondSideLength = 7;
-            testThirdSideLength = -10;
-
             Assert.Throws<ArgumentOutOfRangeException>(() => new Triangle(testFirstSidesLength, testSecondSideLength, testThirdSideLength));
         }
 
         [Test]
-        public void Exception_On_ThreeNumber_ExceedTriangleSideLengthLimit()
-        {
-            int testFirstSidesLength = 1;
-            int testSecondSideLength = 3;
-            int testThirdSideLength = 7;
+        [TestCase(1, 3, 7)]
 
+        public void Exception_On_ThreeNumber_ExceedTriangleSideLengthLimit(double testFirstSidesLength,
+                                                                           double testSecondSideLength,
+                                                                           double testThirdSideLength)
+        {
             Assert.Throws<ArgumentException>(() => new Triangle(testFirstSidesLength, testSecondSideLength, testThirdSideLength));
         }
 
         [Test]
-        public void IsRight_On_ThreeNumber()
-        {
-            int testFirstSidesLength = 3;
-            int testSecondSideLength = 4;
-            int testThirdSideLength = 5;
+        [TestCase(3, 4, 5)]
 
+        public void IsRight_On_ThreeNumber(double testFirstSidesLength,
+                                           double testSecondSideLength,
+                                           double testThirdSideLength)
+        {
             Triangle? testTriangle = new Triangle(testFirstSidesLength, testSecondSideLength, testThirdSideLength);
 
             Assert.That(testTriangle.IsRight, Is.True);
         }
 
         [Test]
-        public void IsNotRight_On_ThreeNumber()
-        {
-            int testFirstSidesLength = 3;
-            int testSecondSideLength = 4;
-            int testThirdSideLength = 6;
+        [TestCase(3, 4, 6)]
 
+        public void IsNotRight_On_ThreeNumber(double testFirstSidesLength,
+                                              double testSecondSideLength,
+                                              double testThirdSideLength)
+        {
             Triangle? testTriangle = new Triangle(testFirstSidesLength, testSecondSideLength, testThirdSideLength);
 
             Assert.That(testTriangle.IsRight, Is.False);

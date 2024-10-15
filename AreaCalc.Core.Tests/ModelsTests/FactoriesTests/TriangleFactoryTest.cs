@@ -6,21 +6,18 @@ namespace AreaCalc.Core.Tests.ModelsTests.FactoriesTests
     internal class TriangleFactoryTest
     {
         [Test]
-        public void Succes_On_OneNumber_Input_Correct()
+        [TestCase(5)]
+        public void Succes_On_OneNumber_Input_Correct(double testTriangleSide)
         {
-            int testTriangleSide = 5;
-
             var factory = new TriangleFactory();
 
             Assert.DoesNotThrow(() => factory.Create(testTriangleSide));
         }
 
         [Test]
-        public void Succes_On_TwoNumbers_Input_Correct()
+        [TestCase(5, 5)]
+        public void Succes_On_TwoNumbers_Input_Correct(double testEqualTriangleSide, double testUnequalTriangleSide)
         {
-            int testEqualTriangleSide = 5;
-            int testUnequalTriangleSide = 5;
-
             var factory = new TriangleFactory();
 
             Assert.DoesNotThrow(() => factory.Create(testEqualTriangleSide, testUnequalTriangleSide));
@@ -35,23 +32,21 @@ namespace AreaCalc.Core.Tests.ModelsTests.FactoriesTests
         }
 
         [Test]
-        public void Exception_On_Input_Incorrect()
+        [TestCase(-5)]
+        public void Exception_On_Input_Incorrect(double testTriangleSide_incorrect)
         {
-            int testTriangleSide_incorrect = -5;
-
             var factory = new CircleFactory();
 
             Assert.Throws<ArgumentOutOfRangeException>(() => factory.Create(testTriangleSide_incorrect));
         }
 
         [Test]
-        public void EqualAreas_On_Input_Override()
+        [TestCase(5, 6, 6, 6)]
+        public void EqualAreas_On_Input_Override(double testFirstCircleRadius,
+                                                 double testSecondTriangleSide,
+                                                 double testThirdTriangleSide,
+                                                 double testTriangleSide_override)
         {
-            int testFirstCircleRadius = 5;
-            int testSecondTriangleSide = 6;
-            int testThirdTriangleSide = 6;
-            int testTriangleSide_override = 6;
-
             var factory = new CircleFactory();
 
             IFigure? firstCircle = null;
